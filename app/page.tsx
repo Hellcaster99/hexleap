@@ -1,113 +1,150 @@
+'use client';
+import clsx from "clsx";
 import Image from "next/image";
+import { useState } from "react";
+
+const list = [
+  {
+    src: "/images/1.jpg",
+    name: "Sacramento river cats",
+    events:"48 events",
+    sport:"Baseball"
+
+  },
+  {
+    src: "/images/4.jpg",
+    name: "Las Vegas Aviators",
+    events:"28 events",
+    sport:"Baseball"
+  },
+  {
+    src: "/images/3.jpg",
+    name: "New Jersey Devils",
+    events:"15 events",
+    sport:"Ice Hockey"
+  },
+  {
+    src: "/images/4.jpg",
+    name: "Las Vegas Aviators",
+    events:"28 events",
+    sport:"Baseball"
+  }
+]
+
+const list2 = [
+  {
+    src: "/images/8.jpg",
+    name: "Las Veggas Aviators",
+    address: "Las Vegas Ballpark, Las Vegas, Nevada",
+    button: "Take Flight Collection"
+  },
+  {
+    src: "/images/7.jpg",
+    name: "Sacramento River Cats",
+    address: "Sutter Health Park, Sacramento, California",
+    button: "Take Flight Collection"
+  },
+  {
+    src: "/images/8.jpg",
+    name: "Las Veggas Aviators",
+    address: "Las Vegas Ballpark, Las Vegas, Nevada",
+    button: "Take Flight Collection"
+  }
+]
 
 export default function Home() {
+  const [bg,setBg] = useState(true);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className={clsx("flex min-h-screen w-[100%] flex-col items-center justify-center px-[3%] xl:px-[5%]",bg ? "bg-[#292b32]":"bg-[#f7f7f7]")}>
+      <div className="flex w-[100%] h-[80px] justify-end items-center py-1">
+        <span className={clsx(bg ? "text-white":"text-[#939498]","text-sm md:text-md mx-[15px]")}>
+          {bg ? "Dark":"Light"} Mode
+        </span>
+        <button onClick={()=>{setBg(!bg)}} className={clsx("w-[40px] md:w-[60px] h-[20px] md:h-[30px] shadow-xl rounded-[20px] md:rounded-[30px] relative flex border",bg?"border-white":"border-[#939498]")} >
+          <div className={clsx("absolute rounded-[50%] duration-300 w-[20px] md:w-[30px] border h-[20px] md:h-[30px] shadow-xl",bg ? "left-0 bg-white":"translate-x-[100%] bg-[#939498]")}></div>
+        </button>
+      </div>
+      <div className="w-[100%] min-h-[650px] flex flex-col justify-between">
+        <div className="w-[100%] h-[100px] flex items-center py-[25px]">
+          <h1 className={clsx(bg ? "text-white":"","text-lg border-b border-blue-600 font-bold")}>Sports</h1>
+        </div>
+        <div className="w-[100%] min-h-[500px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[12px]">
+          {list.map((item,i)=>{
+            return(
+              <div key={i} className={clsx("w-[100%] h-[450px] p-2 shadow-md flex flex-col justify-between items-center",bg ? "bg-[#393b45] text-white":"bg-white")}>
+                <div className="w-[100%] h-[85%] relative flex flex-col justify-between">
+                  <div className="w-[100%] h-[90%] relative">
+                    <Image src={item.src} fill alt="img"></Image>
+                  </div>
+                  <h1 className="absolute bottom-0">{item.name}</h1>
+                </div>
+                <div className={clsx(bg ? "bg-[#212228] text-white":"bg-[#eeeeee]","w-[100%] h-[12%] text-[13px] lg:text-[12px] flex py-1 px-2")}>
+                  <div className="w-[50%] h-[100%] flex flex-col justify-between py-1">
+                    <p className={clsx(bg?"text-[#a5a5a5]":"text-[#585858]")}>Total Events</p>
+                    <p>{item.events}</p>
+                  </div>
+                  <div className="w-[50%] h-[100%] flex flex-col justify-between py-1">
+                    <p className={clsx(bg?"text-[#a5a5a5]":"text-[#585858]")}>Sport</p>
+                    <p>{item.sport}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+              <div className={clsx("w-[100%] h-[450px] p-2 shadow-xl",bg ? "bg-[#393b45] text-white":"bg-white")}>
+                <div className="w-[100%] h-[45%] relative">
+                  <Image src={"/images/ad.jpg"} fill alt="ad"></Image>
+                </div>
+                <div className={clsx("w-[100%] h-[55%] p-2 flex flex-col",bg?"":"border border-[#006555]")}>
+                  <h1 className="font-bold my-[10px]">Advertisement title</h1>
+                  <p className=" text-[12px] lg:text-xs font-light">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor suscipit necessitatibus, aperiam cumque dolorem perspiciatis nostrum rerum pariatur. Velit ducimus laudantium saepe minus consectetur voluptate maxime, id provident tenetur iure.</p>
+                </div>
+              </div>
+        </div>
+        <div className="w-[100%] h-[100px] py-[25px] flex justify-center items-center">
+          <button className="bg-blue-500 w-[150px] h-[50px] p-2 text-white">See More</button>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className={clsx("w-[100%] mt-[10px] mb-[50px] py-[5%] min-h-[700px] flex justify-center items-center",bg ? "bg-gradient-to-b to-[#130530] from-[#041c03]":"")}>
+        <div className={clsx("w-[90%] md:w-[80%] lg:w-[70%] min-h-[630px] flex flex-col gap-[20px] justify-between items-center",bg ? "text-white":"")}>
+          <h1 className=" text-[30px] lg:text-[40px] font-bold text-center">Collection Spotlight</h1>
+          <p className="font-light text-[10px] w-[90%] lg:text-[12px] text-center">Discover extraordinary moments with our Spotlight Collection metatickets—exclusive access to premium events for an unforgettable experience. Grab yours today!</p>
+          <div className="w-[95%] min-h-[450px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] md:gap-[25px] lg:gap-[50px]">
+            {list2.map((item,i)=>{
+              return (
+                <div key={i} className={clsx("w-[100%] h-[480px] pt-3 pb-2 px-3 shadow-2xl flex flex-col justify-between items-center relative overflow-hidden",bg ? "bg-[#393b45] text-white":"bg-white")}>
+                  <div className={clsx("absolute w-[20px] h-[20px] left-0 translate-x-[-50%] top-[67%] rounded-[20px] shadow-inner",bg ? "bg-[#130530]":"bg-gradient-to-r from-[#f7f7f7] to-[#ccc]")}/>
+                  <div className={clsx("absolute w-[20px] h-[20px] right-0 translate-x-[50%] top-[67%] rounded-[20px] shadow-inner",bg ? "bg-[#130530]":"bg-gradient-to-l from-[#f7f7f7] to-[#ccc]")}/>
+                  <div className="w-[100%] h-[70%] relative flex justify-center">
+                    <div className="w-[90%] absolute bottom-0 flex gap-[2%] h-[1px] overflow-x-hidden">
+                      {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((item)=> {return <span key={item} className={clsx("w-[10px] h-[1px]",bg ? "bg-white":"bg-[#656565]")}></span>})}
+                    </div>
+                    <div className="w-[100%] h-[93%] relative shadow-xl">
+                      <Image src={item.src} fill alt="img"></Image>
+                    </div>
+                  </div>
+                  <div className="w-[100%] mt-[10px] h-[28%] flex flex-col justify-around items-center">
+                    <h1 className="text-[14px]">{item.name}</h1>
+                    <div className="w-[50%] lg:w-[65%] text-[10px] lg:text-[8px] xl:text-[10px] font-light flex justify-between items-center h-[15px]">
+                      <span className="w-[33%] text-center">OCT 15</span>
+                      <span>|</span>
+                      <span className="w-[20%] text-center">SUN</span>
+                      <span>|</span>
+                      <span className="w-[33%] text-center">4:30 PM</span>
+                    </div>
+                    <p className={clsx("text-[11px] w-[80%] text-center",bg?"font-thin":"font-light")}>{item.address}</p>
+                    <button className={clsx(bg ? "bg-black":"bg-[#0c0a0a]","p-2 w-[100%] flex justify-center items-center")}>
+                      <p className={clsx("text-[11px] text-white")}>{item.button}</p>
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      
     </main>
   );
 }
